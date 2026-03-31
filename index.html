@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luxury &amp; Modern</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:        #c9a84c;
+      --gold-light:  #e8d5a3;
+      --gold-dark:   #8b6914;
+      --black:       #0a0a0a;
+      --dark:        #111111;
+      --dark-2:      #1a1a1a;
+      --dark-3:      #222222;
+      --white:       #f5f0ea;
+      --white-dim:   rgba(245,240,234,0.7);
+      --transition:  0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ─── Scrollbar ───────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ─── Selection ──────────────────────────────── */
+    ::selection { background: var(--gold); color: var(--black); }
+
+    /* ─── Nav ─────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 5%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.85) 0%, transparent 100%);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      transition: background var(--transition), padding var(--transition);
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.96);
+      padding: 1rem 5%;
+      box-shadow: 0 1px 30px rgba(201,168,76,0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .nav-logo span { color: var(--white); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      text-decoration: none;
+      position: relative;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--black) !important;
+      background: var(--gold);
+      padding: 0.65rem 1.6rem;
+      border-radius: 0;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ─── Hero ────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    }
+
+    /* Animated grid lines */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      animation: gridPan 30s linear infinite;
+    }
+    @keyframes gridPan {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(80px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 2rem;
+      animation: fadeUp 1.2s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tagline {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+      animation: fadeUp 1.2s 0.2s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: 2px;
+      color: var(--white);
+      margin-bottom: 2rem;
+      animation: fadeUp 1.2s 0.35s ease both;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 0.85rem;
+      font-weight: 300;
+      letter-spacing: 1.5px;
+      color: var(--white-dim);
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      animation: fadeUp 1.2s 0.5s ease both;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 1.2s 0.65s ease both;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 1rem 2.8rem;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold-light);
+      transform: translateX(-100%);
+      transition: transform var(--transition);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(201,168,76,0.35); }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-primary span { position: relative; z-index: 1; }
+
+    .btn-outline {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 1rem 2.8rem;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+    .btn-outline:hover { background: var(--gold); color: var(--black); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      animation: fadeUp 1.2s 1s ease both;
+    }
+    .hero-scroll span {
+      font-size: 0.62rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--white-dim);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.15); }
+    }
+
+    /* ─── Section Shared ─────────────────────────── */
+    section { padding: 7rem 5%; }
+
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.5rem 0;
+    }
+    .divider.center { margin: 1.5rem auto; }
+
+    /* ─── About ───────────────────────────────────── */
+    #about {
+      background: var(--dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+    .about-frame {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--dark-2), var(--dark-3));
+      border: 1px solid rgba(201,168,76,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-frame::before {
+      content: '';
+      position: absolute;
+      inset: 16px;
+      border: 1px solid rgba(201,168,76,0.15);
+    }
+    .about-frame-accent {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 70%; height: 70%;
+      border: 1px solid rgba(201,168,76,0.2);
+      z-index: -1;
+    }
+    .about-badge {
+      position: absolute;
+      bottom: 2rem; left: -2rem;
+      background: var(--gold);
+      color: var(--black);
+      padding: 1.2rem 1.8rem;
+      text-align: center;
+    }
+    .about-badge strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+    .about-badge span {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* Decorative gold monogram in frame */
+    .about-monogram {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10rem;
+      font-weight: 300;
+      color: rgba(201,168,76,0.08);
+      letter-spacing: -4px;
+      user-select: none;
+    }
+
+    .about-text p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      margin-bottom: 1.2rem;
+      line-height: 1.9;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 1px solid rgba(201,168,76,0.15);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      margin-top: 0.4rem;
+    }
+
+    /* ─── Services ────────────────────────────────── */
+    #services {
+      background: var(--black);
+      text-align: center;
+    }
+    .services-intro {
+      max-width: 600px;
+      margin: 0 auto 5rem;
+    }
+    .services-intro p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      line-height: 1.9;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--dark);
+      padding: 3.5rem 2.5rem;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition);
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width var(--transition);
+    }
+    .service-card:hover::before { width: 100%; }
+    .service-card:hover { transform: translateY(-6px); }
+
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: rgba(201,168,76,0.12);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .service-icon {
+      width: 48px; height: 48px;
+      margin-bottom: 1.5rem;
+      color: var(--gold);
+    }
+    .service-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+    .service-desc {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      line-height: 1.9;
+    }
+
+    /* ─── Portfolio ───────────────────────────────── */
+    #portfolio {
+      background: var(--dark);
+    }
+    .portfolio-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 280px 280px;
+      gap: 2px;
+    }
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--dark-3);
+      cursor: pointer;
+    }
+    .portfolio-item:nth-child(1) { grid-column: 1 / 7; grid-row: 1 / 2; }
+    .portfolio-item:nth-child(2) { grid-column: 7 / 10; grid-row: 1 / 2; }
+    .portfolio-item:nth-child(3) { grid-column: 10 / 13; grid-row: 1 / 2; }
+    .portfolio-item:nth-child(4) { grid-column: 1 / 4; grid-row: 2 / 3; }
+    .portfolio-item:nth-child(5) { grid-column: 4 / 7; grid-row: 2 / 3; }
+    .portfolio-item:nth-child(6) { grid-column: 7 / 13; grid-row: 2 / 3; }
+
+    .portfolio-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--dark-2), var(--dark-3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      color: rgba(201,168,76,0.07);
+      letter-spacing: 4px;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .portfolio-item:hover .portfolio-bg { transform: scale(1.04); }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+    }
+    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+
+    .portfolio-cat {
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .portfolio-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+
+    /* ─── Testimonials ────────────────────────────── */
+    #testimonials {
+      background: var(--black);
+      text-align: center;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1100px;
+      margin: 4rem auto 0;
+    }
+    .testimonial-card {
+      background: var(--dark);
+      padding: 3rem 2.5rem;
+      text-align: left;
+      position: relative;
+    }
+    .testimonial-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      color: var(--gold);
+      line-height: 0.5;
+      margin-bottom: 1.5rem;
+      opacity: 0.5;
+    }
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .author-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--black);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .author-info strong {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: var(--white);
+    }
+    .author-info span {
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .stars {
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    /* ─── CTA Banner ──────────────────────────────── */
+    #cta {
+      background: var(--gold);
+      padding: 6rem 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(0,0,0,0.08) 0%, transparent 50%);
+    }
+    .cta-content { position: relative; z-index: 1; }
+    .cta-label {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.6);
+      margin-bottom: 1rem;
+    }
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      color: var(--black);
+      line-height: 1.1;
+      margin-bottom: 2.5rem;
+    }
+    .cta-title em { font-style: italic; }
+    .btn-dark {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: var(--black);
+      padding: 1.1rem 3rem;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .btn-dark:hover { background: var(--dark-2); transform: translateY(-2px); }
+
+    /* ─── Contact ─────────────────────────────────── */
+    #contact {
+      background: var(--dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .contact-info p {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      line-height: 1.9;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-details { list-style: none; }
+    .contact-details li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--white-dim);
+    }
+    .contact-details .detail-icon {
+      width: 20px;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .contact-details strong { color: var(--white); display: block; margin-bottom: 0.2rem; font-weight: 500; }
+
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .form-group { position: relative; }
+    .form-group label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--white-dim);
+      margin-bottom: 0.6rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      padding: 0.9rem 1.2rem;
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.05);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group select option { background: var(--dark); color: var(--white); }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+    .form-submit {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      border: none;
+      padding: 1.1rem 2.5rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .form-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    /* ─── Footer ──────────────────────────────────── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(201,168,76,0.12);
+      padding: 4rem 5% 2.5rem;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+    .footer-brand .nav-logo { font-size: 1.4rem; display: inline-block; margin-bottom: 1.2rem; }
+    .footer-brand p {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      line-height: 1.9;
+      margin-bottom: 1.8rem;
+    }
+    .social-links { display: flex; gap: 1rem; }
+    .social-link {
+      width: 38px; height: 38px;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--white-dim);
+      text-decoration: none;
+      font-size: 0.8rem;
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
+    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+
+    .footer-col h4 {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.8rem; }
+    .footer-col a {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--white-dim);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-col a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: rgba(245,240,234,0.35);
+      letter-spacing: 0.5px;
+    }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    /* ─── Scroll-reveal animation ─────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
+
+    /* ─── Responsive ──────────────────────────────── */
+    @media (max-width: 1024px) {
+      #about, #contact { grid-template-columns: 1fr; gap: 4rem; }
+      .about-visual { display: none; }
+      .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .portfolio-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 220px);
+      }
+      .portfolio-item { grid-column: auto !important; grid-row: auto !important; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 5rem 5%; }
+      .nav-links { display: none; }
+      .about-stats { grid-template-columns: repeat(3, 1fr); }
+      .portfolio-grid { grid-template-columns: 1fr; grid-template-rows: repeat(6, 200px); }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ───────────────────────────── -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">LUX<span>URY</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <p class="hero-tagline">Redefining Excellence Since 2010</p>
+      <h1 class="hero-title">
+        Where <em>Luxury</em><br>Meets Precision
+      </h1>
+      <p class="hero-sub">
+        A curated experience crafted for those who demand nothing but the finest.
+        Elegance, refinement, and uncompromising quality.
+      </p>
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn-primary"><span>Explore Our Work</span></a>
+        <a href="#about" class="btn-outline">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── About ────────────────────────────────── -->
+  <section id="about">
+    <div class="about-visual reveal">
+      <div class="about-frame">
+        <div class="about-monogram">LX</div>
+      </div>
+      <div class="about-frame-accent"></div>
+      <div class="about-badge">
+        <strong>15+</strong>
+        <span>Years of Excellence</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label reveal">Our Story</p>
+      <h2 class="section-title reveal reveal-delay-1">
+        Crafted with<br><em>Passion &amp; Purpose</em>
+      </h2>
+      <div class="divider reveal reveal-delay-2"></div>
+      <p class="reveal reveal-delay-2">
+        We are a premier luxury studio dedicated to delivering extraordinary experiences.
+        Every detail is thoughtfully curated — from the materials we select to the partnerships
+        we choose — to ensure that what we create stands the test of time.
+      </p>
+      <p class="reveal reveal-delay-2">
+        Our philosophy is simple: true luxury lies in the harmony of beauty, function,
+        and authenticity. We work closely with each client to understand their vision and
+        translate it into a masterpiece that exceeds every expectation.
+      </p>
+      <div class="about-stats reveal reveal-delay-3">
+        <div>
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Projects Completed</div>
+        </div>
+        <div>
+          <div class="stat-num">98%</div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div>
+          <div class="stat-num">40+</div>
+          <div class="stat-label">Awards Won</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ──────────────────────────────── -->
+  <section id="services">
+    <div class="services-intro">
+      <p class="section-label reveal">What We Offer</p>
+      <h2 class="section-title reveal reveal-delay-1">Our <em>Signature</em> Services</h2>
+      <div class="divider center reveal reveal-delay-1"></div>
+      <p class="reveal reveal-delay-2">
+        Each service is delivered with the meticulous attention to detail that defines our brand,
+        ensuring a flawless and memorable experience every time.
+      </p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+        <h3 class="service-title">Bespoke Design</h3>
+        <p class="service-desc">
+          Tailored design solutions crafted exclusively for you. Every element is
+          considered with precision to reflect your unique vision and identity.
+        </p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-num">02</div>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <h3 class="service-title">Interior Curation</h3>
+        <p class="service-desc">
+          We transform spaces into living works of art — selecting furnishings, materials,
+          and lighting that speak the language of refined elegance.
+        </p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-num">03</div>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+        </svg>
+        <h3 class="service-title">Brand Identity</h3>
+        <p class="service-desc">
+          Building luxury brands from the ground up — visual identity, tone of voice,
+          and brand strategy that commands prestige and recognition.
+        </p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+        </svg>
+        <h3 class="service-title">Private Events</h3>
+        <p class="service-desc">
+          Exclusive event production for those who settle for nothing less than extraordinary.
+          From intimate gatherings to grand galas, perfection is our standard.
+        </p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-num">05</div>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+        </svg>
+        <h3 class="service-title">Digital Presence</h3>
+        <p class="service-desc">
+          Sophisticated digital experiences — websites, campaigns, and content
+          strategies that position your brand where it belongs: at the top.
+        </p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-num">06</div>
+        <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <h3 class="service-title">Concierge Advisory</h3>
+        <p class="service-desc">
+          A dedicated personal advisor who understands your world and delivers
+          white-glove consultation every step of the way.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Portfolio ─────────────────────────────── -->
+  <section id="portfolio">
+    <div class="portfolio-header">
+      <div>
+        <p class="section-label reveal">Selected Work</p>
+        <h2 class="section-title reveal reveal-delay-1">Our <em>Portfolio</em></h2>
+        <div class="divider reveal reveal-delay-1"></div>
+      </div>
+      <a href="#contact" class="btn-outline reveal reveal-delay-2">View All Projects</a>
+    </div>
+    <div class="portfolio-grid">
+
+      <div class="portfolio-item reveal">
+        <div class="portfolio-bg">MAISON</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Interior Design</p>
+          <p class="portfolio-name">Maison Élite Residence</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal reveal-delay-1">
+        <div class="portfolio-bg">BRAND</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Brand Identity</p>
+          <p class="portfolio-name">Noir Collective</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal reveal-delay-2">
+        <div class="portfolio-bg">EVENT</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Private Event</p>
+          <p class="portfolio-name">Le Gala Prestige</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal">
+        <div class="portfolio-bg">WEB</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Digital</p>
+          <p class="portfolio-name">Aurum Digital Platform</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal reveal-delay-1">
+        <div class="portfolio-bg">VILLA</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Architecture</p>
+          <p class="portfolio-name">Villa Serenata</p>
+        </div>
+      </div>
+
+      <div class="portfolio-item reveal reveal-delay-2">
+        <div class="portfolio-bg">LUXURY</div>
+        <div class="portfolio-overlay">
+          <p class="portfolio-cat">Concierge</p>
+          <p class="portfolio-name">The Prestige Collection</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Testimonials ───────────────────────────── -->
+  <section id="testimonials">
+    <p class="section-label reveal">Client Voices</p>
+    <h2 class="section-title reveal reveal-delay-1">Words of <em>Distinction</em></h2>
+    <div class="divider center reveal reveal-delay-1"></div>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">
+          Working with this team was a transformative experience. The attention to detail
+          and the level of craft they brought was unlike anything I had encountered before.
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">A</div>
+          <div class="author-info">
+            <strong>Alexandra Fontaine</strong>
+            <span>CEO, Fontaine Group</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-quote">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">
+          They elevated our brand to a level I didn't think was possible. Every interaction
+          was seamless, sophisticated, and delivered with grace and professionalism.
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">M</div>
+          <div class="author-info">
+            <strong>Marcus Holloway</strong>
+            <span>Founder, Holloway Estate</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-quote">"</div>
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">
+          The gala they produced for us was nothing short of magical. Every guest
+          left with a lasting impression — exactly what a luxury event should achieve.
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar">S</div>
+          <div class="author-info">
+            <strong>Sophia Laurent</strong>
+            <span>Director, Laurent Couture</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CTA Banner ─────────────────────────────── -->
+  <section id="cta">
+    <div class="cta-content">
+      <p class="cta-label">Ready to Begin?</p>
+      <h2 class="cta-title">Let's Create Something<br><em>Extraordinary Together</em></h2>
+      <a href="#contact" class="btn-dark">Start Your Journey</a>
+    </div>
+  </section>
+
+  <!-- ── Contact ───────────────────────────────── -->
+  <section id="contact">
+    <div class="contact-info">
+      <p class="section-label reveal">Get in Touch</p>
+      <h2 class="section-title reveal reveal-delay-1">Begin Your <em>Experience</em></h2>
+      <div class="divider reveal reveal-delay-1"></div>
+      <p class="reveal reveal-delay-2">
+        We believe every great project begins with a conversation.
+        Reach out and allow us to understand your vision — we'll craft a proposal
+        tailored exclusively to your needs.
+      </p>
+      <ul class="contact-details reveal reveal-delay-2">
+        <li>
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          <div>
+            <strong>Visit Our Studio</strong>
+            123 Maison Boulevard, Suite 500<br>New York, NY 10001
+          </div>
+        </li>
+        <li>
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.16 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+          <div>
+            <strong>Call Us</strong>
+            +1 (212) 555-0199
+          </div>
+        </li>
+        <li>
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <div>
+            <strong>Email</strong>
+            hello@luxurymaison.com
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="contact-form-wrapper reveal reveal-delay-1">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="Alexandra" required />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Fontaine" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="hello@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="service">Service of Interest</label>
+          <select id="service" name="service">
+            <option value="">Select a service…</option>
+            <option>Bespoke Design</option>
+            <option>Interior Curation</option>
+            <option>Brand Identity</option>
+            <option>Private Events</option>
+            <option>Digital Presence</option>
+            <option>Concierge Advisory</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" name="message" placeholder="Tell us about your vision…" required></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Your Enquiry</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────── -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo">LUX<span>URY</span></a>
+        <p>
+          A premier luxury studio dedicated to creating extraordinary experiences
+          for discerning clients worldwide. Elegance is not an option — it is our standard.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Pinterest">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.24-5.25 1.24-5.25s-.32-.63-.32-1.57c0-1.47.85-2.57 1.91-2.57.9 0 1.34.68 1.34 1.49 0 .91-.58 2.27-.88 3.54-.25 1.06.52 1.92 1.56 1.92 1.87 0 3.13-2.4 3.13-5.24 0-2.16-1.46-3.76-4.09-3.76-2.98 0-4.83 2.23-4.83 4.71 0 .85.25 1.45.64 1.91.18.21.2.3.14.54-.04.18-.15.6-.19.77-.06.25-.25.34-.47.25-1.32-.54-1.93-2-1.93-3.63 0-2.69 2.27-5.93 6.77-5.93 3.63 0 6.02 2.64 6.02 5.47 0 3.74-2.08 6.54-5.15 6.54-1.03 0-2-.55-2.33-1.18l-.65 2.5c-.23.9-.86 2.02-1.29 2.7.97.29 2 .45 3.07.45 5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Twitter / X">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4 4l16 16M4 20L20 4"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Careers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Bespoke Design</a></li>
+          <li><a href="#services">Interior Curation</a></li>
+          <li><a href="#services">Brand Identity</a></li>
+          <li><a href="#services">Private Events</a></li>
+          <li><a href="#services">Digital Presence</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+          <li><a href="#">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Luxury Maison. All rights reserved.</p>
+      <p>Crafted with precision &amp; <a href="#">elegance</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // ── Navbar scroll effect ─────────────────────
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── Scroll-reveal ────────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Contact form handler ─────────────────────
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = '✓ Enquiry Sent';
+        btn.style.background = '#2a7a4b';
+        setTimeout(() => {
+          btn.textContent = 'Send Your Enquiry';
+          btn.style.background = '';
+          btn.disabled = false;
+          e.target.reset();
+        }, 3000);
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
