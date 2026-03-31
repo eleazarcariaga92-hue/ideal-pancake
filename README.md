@@ -2,6 +2,11 @@
 
 ESP32-S3 firmware project using [PlatformIO](https://platformio.org/).
 
+> **Looking for the website?**
+> See [`index.html`](./index.html) for the modern luxury site design and
+> [`WIX_GUIDE.md`](./WIX_GUIDE.md) for step-by-step instructions on applying the design
+> inside the Wix Editor.
+
 ## Requirements
 
 - [PlatformIO Core](https://docs.platformio.org/en/latest/core/installation.html) (`pio` on PATH)
